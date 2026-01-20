@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to sure everything still looks the same.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+.dark {
+  --background: #020617;
+  --foreground: #f1f5f9;
+}
+
+@layer utilities {
+  .glass-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(to right, #3b82f6, #60a5fa);
+  }
+
+  .dark .text-gradient {
+    background-image: linear-gradient(to right, #60a5fa, #93c5fd);
+  }
+
+  .nav-link {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: scale(0.8);
+    opacity: 0;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 9999px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link:hover::before {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .dark .nav-link:hover::before {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .pop-card {
+    transition:
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.4s ease;
+  }
+
+  .pop-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.2);
+  }
+
+  .dark .pop-card:hover {
+    box-shadow: 0 20px 40px -10px rgba(30, 64, 175, 0.3);
+  }
+
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-glow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  .btn-glow:hover::after {
+    left: 100%;
+    transition: 0.7s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  .delay-1000 {
+    transition-delay: 1000ms;
+  }
+  .delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  .typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid transparent;
+    width: 0;
+    animation:
+      typing 3s steps(30, end) forwards,
+      blink 1s step-end infinite;
+  }
+
+  .typing-effect.delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .typing-effect.delay-2000 {
+    animation-delay: 2s;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
